@@ -147,7 +147,7 @@ import store from '../store'
                     that.haslogin = true;
                     that.userInfo = JSON.parse(localStorage.getItem('userInfo'));
                     that.userId = that.userInfo.id;
-                    getUserInfo(that.userId).then((response)=>{
+                    getUserInfo().then((response)=>{
                         that.userInfoObj = response;
                         that.userInfoObj.head_start = 0;
                     })
@@ -181,16 +181,19 @@ import store from '../store'
     vertical-align: top;
 }
 .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
+    border: 2px dashed #d9d9d9;
     border-radius: 50%;
     cursor: pointer;
     position: relative;
     overflow: hidden;
     width: 120px;
     height: 120px;
+    transition: all 0.3s ease;
   }
   .avatar-uploader .el-upload:hover {
-    border-color: #20a0ff;
+    border-color: #667eea;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    transform: scale(1.05);
   }
   .avatar-uploader-icon {
     font-size: 28px;
@@ -215,9 +218,13 @@ import store from '../store'
     float:right;
     cursor: pointer;
     color:#999;
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 4px;
 }
 .gotoEdit:hover {
-    color:#333;
+    color:#667eea;
+    background: rgba(102, 126, 234, 0.1);
 }
 /*个人设置*/
 .userInfoBox .leftTitle{
@@ -232,7 +239,11 @@ import store from '../store'
 }
 .userInfoBox li{
     padding:20px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
+    transition: background 0.3s ease;
+}
+.userInfoBox li:hover{
+    background: rgba(102, 126, 234, 0.02);
 }
 .userInfoBox li:last-child{
     border-bottom: 1px solid transparent;
@@ -243,7 +254,13 @@ import store from '../store'
 }
 
 .userInfoBox .el-input__inner{
-    border-radius: 4px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+.userInfoBox .el-input__inner:focus{
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
 }
 .userInfoBox  .el-textarea{
     vertical-align: top;
@@ -254,10 +271,17 @@ import store from '../store'
 }
 .saveInfobtn a{
     color:#fff;
-    padding:6px 20px;
+    padding:10px 30px;
     margin:5px 10px;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 14px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-weight: 500;
+}
+.saveInfobtn a:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 .userInfoBox .fa-asterisk{
     color: #DF2050;

@@ -7,16 +7,16 @@
             </span>
             <header>
                 <h1>
-                    <a :href="'#/DetailShare?aid='+detailObj.id" target="_blank">
+                    <router-link :to="'/DetailArticle?aid='+detailObj.id">
                         {{detailObj.title}}
-                    </a>
+                    </router-link>
                 </h1>
                 <h2>
                     <i class="fa fa-fw fa-user"></i>发表于 <span >{{detailObj.createTime}}</span> •
                     <i class="fa fa-fw fa-eye"></i>{{detailObj.viewCount}} 次围观 •
                 </h2>
                 <div class="ui label">
-                    <a :href="'#/Share?classId='+detailObj.categoryId">{{detailObj.categoryName}}</a>
+                    <router-link :to="'/Share?classId='+detailObj.categoryId">{{detailObj.categoryName}}</router-link>
                 </div>
             </header>
             <div class="article-content markdown-body" v-html="detailObj.content"></div>

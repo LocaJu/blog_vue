@@ -54,7 +54,8 @@ time, mark, audio, video {
 }
 body{
   font-family:Arial,"STHeiti", Helvetica, sans-serif;
-  background:#efefef;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background-attachment: fixed;
   font-size:14px;
   color:#444!important;
   min-height:100vh;
@@ -100,6 +101,7 @@ a{
 html{-webkit-text-size-adjust:none;width:100%;height:100% } /*????iphone??safari????????????*/
 input[type="text"], input[type="button"], input[type="submit"], input[type="search"]{
   -webkit-appearance:none;
+  appearance: none;
   border-radius:0;
 }
 /*************其他内容*************/
@@ -136,8 +138,13 @@ a {
     padding-top:10px;
     border-radius: 100px;
     color:#fff;
-    background: @tcolors;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+    background: linear-gradient(135deg, #97dffd 0%, #667eea 100%);
+    box-shadow: 0 4px 15px rgba(151, 223, 253, 0.4);
+    transition: all 0.3s ease;
+}
+.s-round-date:hover{
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(151, 223, 253, 0.6);
 }
 .s-round-date span{
     text-align: center;
@@ -154,10 +161,16 @@ a {
     word-break: break-all;
     position: relative;
     background: #fff;
-    padding:15px;
-    border-radius: 5px;
+    padding:25px;
+    border-radius: 12px;
     margin-bottom: 40px;
     font-size: 15px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+.tcommonBox:hover{
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
 }
 .tcommonBox header{
     white-space: normal;
@@ -345,14 +358,17 @@ a {
     color:@tcolord;
 }
 .tcolors-bg{
-    background: @tcolors;
+    background: linear-gradient(135deg, #97dffd 0%, #667eea 100%);
     transition: all .3s ease-in-out;
+    box-shadow: 0 4px 15px rgba(151, 223, 253, 0.3);
 }
 .tcolord-bg{
-    background: @tcolord;
+    background: linear-gradient(135deg, #48456D 0%, #667eea 100%);
 }
 .tcolors-bg:hover{
-    background: @tcolord;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
 .paginationBox li.active{
@@ -401,6 +417,7 @@ a {
 .smalltitle{
     /*height:36px;*/
     /*line-height: 36px;*/
+    display: block;
 }
 
 .logoImg{
@@ -419,16 +436,22 @@ a {
 //公共标签
 .ui.label{
     border-color:@tcolors;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
-    background-color: #97dffd;
+    box-shadow: 0 4px 15px rgba(151, 223, 253, 0.3);
+    background: linear-gradient(135deg, #97dffd 0%, #667eea 100%);
     margin:5px 0 15px 2px;
     font-size: 14px;
     position: relative;
     left:-32px;
-    border-radius: 0 4px 4px 0;
-    padding:7px 11.2px 7px 32px;
+    border-radius: 0 8px 8px 0;
+    padding:8px 12px 8px 32px;
     display: inline-block;
     color:#fff;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+.ui.label:hover{
+    transform: translateX(5px);
+    box-shadow: 0 6px 20px rgba(151, 223, 253, 0.4);
 }
 .ui.label::after{
     position: absolute;

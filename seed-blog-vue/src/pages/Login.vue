@@ -1,9 +1,9 @@
 <!-- 登录注册 -->
 <template>
-    <div>
+    <div class="login-page">
         <div class="container">
             <h1 class="loginTitle">
-                
+                欢迎回来
             </h1>
             <!-- 登录注册 -->
             <div v-show="!err2005" class="">
@@ -11,7 +11,7 @@
                     <div class="lr-title">
                         <h1>登录</h1>
                         <p>
-                            新用户<a href="#/Login?login=0" class="tcolors">注册</a>
+                            新用户<router-link to="/Login?login=0" class="tcolors">注册</router-link>
                         </p>
                     </div>
                     <el-alert
@@ -45,7 +45,7 @@
                     <div class="lr-title">
                         <h1>注册</h1>
                         <p>
-                            已有账号<a href="#/Login?login=1" class="tcolors">登录</a>
+                            已有账号<router-link to="/Login?login=1" class="tcolors">登录</router-link>
                         </p>
                     </div>
                     <el-alert
@@ -156,16 +156,39 @@ import {setToken} from '../utils/auth.js'
                 }
             },
             gotoHome:function(){//用户登录
+                if(!this.username || !this.password){
+                    this.loginErr = true;
+                    this.loginTitle = '请输入用户名和密码';
+                    return;
+                }
+                this.loginErr = false;
                 userLogin(this.username,this.password).then((response)=>{
                     // 登录成功记录token和用户信息，登录失败给对应提示
-                    setToken(response.token)
-                    // 存储用户信息
-                    localStorage.setItem("userInfo",JSON.stringify(response.userInfo))
-                    if(localStorage.getItem('logUrl')){
-                        this.$router.push({path:localStorage.getItem('logUrl')});
-                    }else{
-                        this.$router.push({path:'/'});
+                    if(response && response.token){
+                        setToken(response.token)
+                        // 存储用户信息
+                        if(response.userInfo){
+                            localStorage.setItem("userInfo",JSON.stringify(response.userInfo))
+                        }
+                        // 获取跳转路径并清除logUrl
+                        var redirectPath = '/';
+                        if(localStorage.getItem('logUrl')){
+                            redirectPath = localStorage.getItem('logUrl');
+                            localStorage.removeItem('logUrl');
+                        }
+                        // 执行跳转
+                        this.$router.push({path: redirectPath}).catch(err => {
+                            // 如果跳转失败（比如路径不存在），跳转到首页
+                            console.error('路由跳转失败:', err);
+                            this.$router.push({path: '/'});
+                        });
+                    } else {
+                        this.loginErr = true;
+                        this.loginTitle = '登录失败，返回数据异常';
                     }
+                }).catch((error)=>{
+                    this.loginErr = true;
+                    this.loginTitle = error.message || '登录失败，请检查用户名和密码';
                 })
       
             },
@@ -233,18 +256,39 @@ import {setToken} from '../utils/auth.js'
 </script>
 
 <style>
+/* 登录页面容器 */
+.login-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 /*登录注册标题*/
 .loginTitle{
     text-align: center;
     font-size: 26px;
     padding-top:50px;
     margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .loginBox ,.registerBox{
     background: #fff;
     padding:40px;
-    max-width:320px;
+    max-width:380px;
     margin:0 auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease;
+}
+.loginBox:hover, .registerBox:hover {
+    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+    transform: translateY(-5px);
 }
 .loginBox{
     padding-bottom:0;
@@ -253,39 +297,67 @@ import {setToken} from '../utils/auth.js'
     position: relative;
     height:32px;
     line-height: 32px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 .lr-title h1{
-    font-size: 24px;
-    color:#666;
-    font-weight: bold;
-    /*width:50%;*/
+    font-size: 28px;
+    color:#333;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 .lr-title p{
-    font-size: 12px;
+    font-size: 13px;
     color:#999;
     position: absolute;
     right:0;
     top:0;
 }
+.lr-title p a{
+    color: #667eea;
+    transition: color 0.3s ease;
+}
+.lr-title p a:hover{
+    color: #764ba2;
+}
 .lr-btn{
     color:#fff;
     text-align: center;
     letter-spacing: 5px;
-    padding:8px;
-    border-radius: 5px;
+    padding:12px;
+    border-radius: 8px;
     cursor: pointer;
     margin-bottom: 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+.lr-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+.lr-btn:active{
+    transform: translateY(0);
 }
 .loginBox .el-input,.registerBox .el-input{
     margin-bottom: 20px;
 }
+.loginBox .el-input__inner,.registerBox .el-input__inner{
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+    padding: 12px 15px;
+}
+.loginBox .el-input__inner:focus,.registerBox .el-input__inner:focus{
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
 .loginBox .el-alert ,.registerBox .el-alert{
     top:-18px;
-    background-color: #888;
-}
-.loginBox .el-input input,.registerBox .el-input input{
-    border-radius: 4px;
+    border-radius: 6px;
 }
 .loginBox h3,.registerBox h3{
     text-align: right;
@@ -293,16 +365,21 @@ import {setToken} from '../utils/auth.js'
 }
 .loginBox h3 a,.registerBox h3 a{
     font-size: 13px;
-    color:#999;
+    color:#667eea;
+    transition: color 0.3s ease;
+}
+.loginBox h3 a:hover,.registerBox h3 a:hover{
+    color:#764ba2;
 }
 .loginBox .otherLogin{
     max-width:320px;
     padding:30px 40px;
-    background: #ddd;
+    background: #f5f5f5;
     text-align: center;
     margin-left:-40px;
     margin-right: -40px;
     visibility: hidden;
+    border-radius: 0 0 12px 12px;
 }
 .loginBox .otherLogin p{
     margin-bottom:20px;
@@ -317,6 +394,10 @@ import {setToken} from '../utils/auth.js'
     border-radius: 50%;
     color:#fff;
     margin: 0 10px;
+    transition: transform 0.3s ease;
+}
+.loginBox .otherLogin a i:hover{
+    transform: scale(1.1);
 }
 .loginBox .otherLogin a i.fa-wechat{
     background: #7bc549;
@@ -357,6 +438,18 @@ import {setToken} from '../utils/auth.js'
     cursor: pointer;
 }
 .registerSuc .sucContent  .el-icon-close{
-    fong-size: 13px;
+    font-size: 13px;
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 </style>

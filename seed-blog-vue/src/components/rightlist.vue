@@ -67,9 +67,9 @@
       <h2 class="ui label">热门文章</h2>
       <ul>
         <li v-for="(item, index) in browseList" :key="'browseList' + index">
-          <a :href="'#/DetailArticle?aid=' + item.id" target="_blank">{{
+          <router-link :to="'/DetailArticle?aid=' + item.id">{{
             item.title
-          }}</a>
+          }}</router-link>
           —— {{ item.viewCount }} 次围观
         </li>
       </ul>
@@ -192,16 +192,17 @@ export default {
   position: relative;
 }
 .rightlistBox section {
-  transition: all 0.2s linear;
+  transition: all 0.3s ease;
   position: relative;
   background: #fff;
-  padding: 15px;
+  padding: 20px;
   margin-bottom: 20px;
-  border-radius: 5px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
 .rightlistBox section:hover {
-  transform: translate(0, -2px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 .rightlistBox .r1-head {
   text-align: center;

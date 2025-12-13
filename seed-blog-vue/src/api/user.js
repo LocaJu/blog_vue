@@ -31,11 +31,10 @@ export function logout() {
     })
 }
 
-export function getUserInfo(userId) {
+export function getUserInfo() {
     return request ({
         url: '/user/userInfo',
-        method: 'get',
-        params: {"userId":userId}
+        method: 'get'
     })
 }
 

@@ -14,9 +14,6 @@ export function getArticleComment(query) {
     return request({
         url: '/comment/commentList',
         method: 'get',
-        headers: {
-          isToken: false
-        },
         params: query
     })
 }

@@ -23,7 +23,7 @@
 								<i class="fa fa-fw fa-user-circle userImg"></i>
 								<ul class="haslogin-info">
 									<li>
-										<a href="#/UserInfo">个人中心</a>
+										<router-link to="/UserInfo">个人中心</router-link>
 									</li>
 									<li>
 										<a href="javascript:void(0);" @click="userlogout">退出登录</a>
@@ -46,7 +46,7 @@
 
 			<h2 class="h-description">
 
-                        {{this.$store.state.themeObj.autograph?this.$store.state.themeObj.autograph:"三更灯火五更鸡，正是男儿读书时"}}
+                        {{this.$store.state.themeObj.autograph?this.$store.state.themeObj.autograph:"记录美好生活"}}
 
                 </h2>
 		</div>
@@ -216,14 +216,15 @@ export default {
 
 .headBack {
 	width: 100%;
-	background: rgba(40, 42, 44, 0.6);
+	background: linear-gradient(135deg, rgba(72, 69, 108, 0.95) 0%, rgba(100, 96, 158, 0.95) 100%);
 	/*margin-bottom:30px;*/
-	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
+	box-shadow: 0 4px 20px rgba(0, 0, 0, .15);
 	position: fixed;
 	left: 0;
 	top: 0;
 	right: 0;
 	z-index: 100;
+	backdrop-filter: blur(10px);
 }
 
 .headBox li.is-active {
@@ -273,8 +274,10 @@ export default {
 
 .headBox>ul li.el-menu-item:hover,
 .headBox>ul li.el-submenu:hover .el-submenu__title {
-	background: #48456C;
+	background: rgba(255, 255, 255, 0.1);
 	border-bottom: none;
+	border-radius: 4px;
+	transition: all 0.3s ease;
 }
 
 .headBox>ul .el-submenu .el-menu,
@@ -385,17 +388,30 @@ export default {
 }
 
 .headBox .haslogin ul {
-	background: rgba(40, 42, 44, 0.6);
-	padding: 5px 10px;
+	background: rgba(40, 42, 44, 0.95);
+	padding: 8px 0;
 	position: absolute;
 	right: 0;
 	visibility: hidden;
 	opacity: 0;
 	transition: all 0.3s ease-out;
+	border-radius: 8px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+	backdrop-filter: blur(10px);
+	min-width: 120px;
 }
 
 .headBox .haslogin ul li {
-	border-bottom: 1px solid #48456C;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	padding: 8px 15px;
+	transition: background 0.2s ease;
+}
+.headBox .haslogin ul li:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+.headBox .haslogin ul li a {
+	color: #fff;
+	display: block;
 }
 
 .headBox .haslogin ul li:last-child {
@@ -575,6 +591,7 @@ export default {
 .h-information h2  a{
 	background: linear-gradient(to right, #DF2050, #48456D);
 	-webkit-background-clip: text;
+	background-clip: text;
 	color: transparent;
 }
 .headImgBox .scene {

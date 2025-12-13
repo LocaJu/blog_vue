@@ -9,18 +9,18 @@
             </span>
             <header>
                 <h1>
-                    <a :href="'#/DetailArticle?aid='+item.id" target="_blank">
+                    <router-link :to="'/DetailArticle?aid='+item.id">
                         {{item.title}}
-                    </a>
+                    </router-link>
                 </h1>
                 <h2>
                     <i class="fa fa-fw fa-user"></i>发表于
-                    <i class="fa fa-fw fa-clock-o"></i><span v-html="showInitDate(item.createTime,'all')">{{showInitDate(item.createTime,'all')}}</span> •
+                    <i class="fa fa-fw fa-clock-o"></i><span>{{showInitDate(item.createTime,'all')}}</span> •
                     <i class="fa fa-fw fa-eye"></i>{{item.viewCount}} 次围观 •
 
                 </h2>
                 <div class="ui label">
-                    <a :href="'#/Share?classId='+item.class_id">{{item.categoryName}}</a>
+                    <router-link :to="'/Share?classId='+item.class_id">{{item.categoryName}}</router-link>
                 </div>
             </header>
             <div class="article-content">
@@ -32,9 +32,9 @@
                 </p>
             </div>
             <div class="viewdetail">
-                <a class="tcolors-bg" :href="'#/DetailArticle?aid='+item.id" target="_blank">
+                <router-link class="tcolors-bg" :to="'/DetailArticle?aid='+item.id">
                     阅读全文>>
-                </a>
+                </router-link>
             </div>
 
         </el-col>
@@ -115,9 +115,10 @@ import {articleList} from '../api/article'
 .shareTitle{
     margin-bottom: 40px;
     position: relative;
-    border-radius: 5px;
+    border-radius: 12px;
     background: #fff;
-    padding:15px;
+    padding:20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
 .shareclassTwo{
     width:100%;
@@ -127,32 +128,53 @@ import {articleList} from '../api/article'
 }
 .shareclassTwo li a{
     display: inline-block;
-    padding:3px 7px;
+    padding:8px 16px;
     margin:5px 10px;
     color:#fff;
-    border-radius: 4px;
-    background: #64609E;
-    border: 1px solid #64609E;
-    transition: transform 0.2s linear;
-    -webkit-transition: transform 0.2s linear;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #64609E 0%, #667eea 100%);
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(100, 96, 158, 0.3);
+    font-weight: 500;
 }
 .shareclassTwo li a:hover{
-    transform: translate(0,-3px);
-    -webkit-transform: translate(0,-3px);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(100, 96, 158, 0.4);
 }
 .shareclassTwo li a.active{
-    background: #fff;
-    color:#64609E;
-
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color:#fff;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 /*文章列表*/
     .sharelistBox{
         transition: all 0.5s ease-out;
         font-size: 15px;
     }
-
-
-    /*.sharelistBox .viewmore a:hover,.s-item .viewdetail a:hover{
-        background: #48456C;
-    }*/
+    
+    .s-item {
+        transition: all 0.3s ease;
+    }
+    
+    .s-item:hover {
+        transform: translateY(-5px);
+    }
+    
+    .s-item header h1 a {
+        color: #333;
+        transition: color 0.3s ease;
+    }
+    
+    .s-item header h1 a:hover {
+        color: #667eea;
+    }
+    
+    .viewdetail a {
+        transition: all 0.3s ease;
+    }
+    
+    .viewdetail a:hover {
+        transform: translateY(-2px);
+    }
 </style>
