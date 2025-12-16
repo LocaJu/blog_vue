@@ -1,4 +1,4 @@
-// base color
+// base color - 现代化配色方案
 $blue:#324157;
 $light-blue:#3A71A8;
 $red:#C03639;
@@ -8,18 +8,26 @@ $tiffany: #4AB7BD;
 $yellow:#FEC171;
 $panGreen: #30B08F;
 
-// 默认菜单主题风格
-$base-menu-color:#bfcbd9;
-$base-menu-color-active:#f4f4f5;
-$base-menu-background:#304156;
+// 现代化主题色
+$primary-color: #409EFF;
+$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$success-color: #67C23A;
+$warning-color: #E6A23C;
+$danger-color: #F56C6C;
+$info-color: #909399;
+
+// 默认菜单主题风格 - 现代化深色主题
+$base-menu-color:rgba(255, 255, 255, 0.75);
+$base-menu-color-active:#ffffff;
+$base-menu-background:linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
 $base-logo-title-color: #ffffff;
 
 $base-menu-light-color:rgba(0,0,0,.70);
 $base-menu-light-background:#ffffff;
 $base-logo-light-title-color: #001529;
 
-$base-sub-menu-background:#1f2d3d;
-$base-sub-menu-hover:#001528;
+$base-sub-menu-background:rgba(0, 0, 0, 0.15);
+$base-sub-menu-hover:rgba(255, 255, 255, 0.1);
 
 // 自定义暗色菜单风格
 /**
@@ -40,11 +48,28 @@ $base-sidebar-width: 200px;
 
 // the :export directive is the magic sauce for webpack
 // https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+// 阴影系统
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+$shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.15);
+
+// 圆角系统
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+
+// 过渡动画
+$transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-fast: all 0.15s ease-in-out;
+$transition-slow: all 0.5s ease-in-out;
+
 :export {
   menuColor: $base-menu-color;
   menuLightColor: $base-menu-light-color;
   menuColorActive: $base-menu-color-active;
-  menuBackground: $base-menu-background;
+  menuBackground: #1e3c72;
   menuLightBackground: $base-menu-light-background;
   subMenuBackground: $base-sub-menu-background;
   subMenuHover: $base-sub-menu-hover;

@@ -119,9 +119,137 @@ aside {
   }
 }
 
-//main-container全局样式
+//main-container全局样式 - 现代化设计
 .app-container {
-  padding: 20px;
+  padding: 24px;
+  background: #f5f7fa;
+  min-height: calc(100vh - 60px);
+  transition: all 0.3s ease;
+}
+
+// 卡片样式增强
+.el-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: none;
+
+  &:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+}
+
+// 表格样式增强
+.el-table {
+  border-radius: 8px;
+  overflow: hidden;
+
+  th {
+    background: #fafbfc;
+    color: #606266;
+    font-weight: 600;
+  }
+
+  tr:hover {
+    background: #f5f7fa;
+  }
+}
+
+// 按钮样式增强
+.el-button {
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &.el-button--primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+
+    &:hover {
+      background: linear-gradient(135deg, #5568d3 0%, #6a3d8f 100%);
+    }
+  }
+}
+
+// 输入框样式增强
+.el-input__inner {
+  border-radius: 6px;
+  transition: all 0.3s ease;
+
+  &:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+}
+
+// 分页样式
+.pagination-container {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+// 表单样式
+.el-form-item__label {
+  font-weight: 500;
+  color: #606266;
+}
+
+// 标签页样式
+.el-tabs__item {
+  font-weight: 500;
+  transition: all 0.3s ease;
+
+  &.is-active {
+    color: #667eea;
+    font-weight: 600;
+  }
+}
+
+.el-tabs__active-bar {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  height: 3px;
+}
+
+// 对话框样式
+.el-dialog {
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.el-dialog__header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+// 滚动条美化
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+
+  &:hover {
+    background: linear-gradient(135deg, #5568d3 0%, #6a3d8f 100%);
+  }
 }
 
 .components-container {
@@ -172,11 +300,47 @@ aside {
 }
 
 .filter-container {
-  padding-bottom: 10px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 
   .filter-item {
     display: inline-block;
     vertical-align: middle;
     margin-bottom: 10px;
+    margin-right: 12px;
+  }
+}
+
+// 页面过渡动画
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// 加载动画
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// 脉冲动画
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
   }
 }

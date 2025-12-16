@@ -1,16 +1,17 @@
 <template>
-    <div :class="{'has-logo':showLogo}" :style="{ backgroundColor: settings.sideTheme === 'theme-dark' ? variables.menuBackground : variables.menuLightBackground }">
+    <div :class="{'has-logo':showLogo, 'theme-dark-sidebar': settings.sideTheme === 'theme-dark'}" class="sidebar-wrapper">
         <logo v-if="showLogo" :collapse="isCollapse" />
         <el-scrollbar :class="settings.sideTheme" wrap-class="scrollbar-wrapper">
             <el-menu
                 :default-active="activeMenu"
                 :collapse="isCollapse"
-                :background-color="settings.sideTheme === 'theme-dark' ? variables.menuBackground : variables.menuLightBackground"
+                :background-color="settings.sideTheme === 'theme-dark' ? 'transparent' : variables.menuLightBackground"
                 :text-color="settings.sideTheme === 'theme-dark' ? variables.menuColor : variables.menuLightColor"
                 :unique-opened="true"
                 :active-text-color="settings.theme"
                 :collapse-transition="false"
                 mode="vertical"
+                class="modern-menu"
             >
                 <sidebar-item
                     v-for="(route, index) in sidebarRouters"
@@ -55,3 +56,15 @@ export default {
     }
 };
 </script>
+
+<style lang="scss" scoped>
+.sidebar-wrapper {
+  &.theme-dark-sidebar {
+    background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+  }
+}
+
+.modern-menu {
+  border: none !important;
+}
+</style>

@@ -94,7 +94,8 @@ export default {
     right: 0;
     z-index: 9;
     width: calc(100% - #{$base-sidebar-width});
-    transition: width 0.28s;
+    transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
   }
 
   .hideSidebar .fixed-header {
@@ -107,5 +108,9 @@ export default {
 
   .mobile .fixed-header {
     width: 100%;
+  }
+
+  .main-container {
+    transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   }
 </style>
