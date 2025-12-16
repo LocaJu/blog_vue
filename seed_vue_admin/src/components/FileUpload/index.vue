@@ -75,7 +75,7 @@ export default {
       baseUrl: process.env.VUE_APP_BASE_API,
       uploadFileUrl: process.env.VUE_APP_BASE_API + "/common/upload", // 上传文件服务器地址
       headers: {
-        Authorization: "Bearer " + getToken(),
+        token: getToken(),
       },
       fileList: [],
     };

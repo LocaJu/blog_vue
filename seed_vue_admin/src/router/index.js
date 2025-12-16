@@ -87,6 +87,21 @@ export const constantRoutes = [
         meta: { title: '个人中心', icon: 'user' }
       }
     ]
+  },
+  {
+    path: '/content',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'Content',
+    meta: { title: '内容管理', icon: 'guide' },
+    children: [
+      {
+        path: 'article',
+        component: () => import('@/views/content/article/index'),
+        name: 'Article',
+        meta: { title: '文章管理', icon: 'edit' }
+      }
+    ]
   }
 ]
 

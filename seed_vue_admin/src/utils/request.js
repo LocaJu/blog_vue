@@ -26,9 +26,39 @@ service.interceptors.request.use(config => {
   const isToken = (config.headers || {}).isToken === false
   // 是否需要防止数据重复提交
   const isRepeatSubmit = (config.headers || {}).repeatSubmit === false
+  
+  // 先添加token（必须在处理FormData之前，确保token被正确添加）
   if (getToken() && !isToken) {
     // config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
     config.headers['token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+  }
+  
+  // 然后处理FormData，删除手动设置的Content-Type（让浏览器自动设置boundary）
+  if (config.data instanceof FormData) {
+    // 删除手动设置的Content-Type，让浏览器自动设置（包含boundary）
+    // 但保留其他headers（如token）
+    if (config.headers && config.headers['Content-Type']) {
+      delete config.headers['Content-Type'];
+    }
+    // 确保headers对象存在
+    if (!config.headers) {
+      config.headers = {};
+    }
+    // 再次确保token存在（防止被删除）
+    if (getToken() && !isToken && !config.headers['token']) {
+      config.headers['token'] = getToken();
+    }
+  }
+  
+  // 调试日志（仅在上传接口时）
+  if (config.url && config.url.includes('/common/upload')) {
+    console.log('上传请求配置:', {
+      url: config.url,
+      hasToken: !!config.headers['token'],
+      token: config.headers['token'] ? (config.headers['token'].substring(0, 20) + '...') : '无',
+      isFormData: config.data instanceof FormData,
+      allHeaders: Object.keys(config.headers || {})
+    });
   }
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
@@ -37,6 +67,7 @@ service.interceptors.request.use(config => {
     config.params = {};
     config.url = url;
   }
+  // 如果设置了 repeatSubmit: false，则跳过防重复提交检查
   if (!isRepeatSubmit && (config.method === 'post' || config.method === 'put')) {
     const requestObj = {
       url: config.url,
