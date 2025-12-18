@@ -72,6 +72,7 @@ export default {
   data() {
     return {
       number: 0,
+      completedNumber: 0, // 已完成上传的文件数（成功+失败）
       uploadList: [],
       dialogImageUrl: "",
       dialogVisible: false,
@@ -154,16 +155,14 @@ export default {
     },
     // 上传成功回调
     handleUploadSuccess(res, file) {
+      this.completedNumber++;
       if (res.code === 200) {
         this.uploadList.push({ name: res.fileName, url: res.fileName });
-        this.uploadedSuccessfully();
       } else {
-        this.number--;
-        this.$modal.closeLoading();
         this.$modal.msgError(res.msg);
         this.$refs.imageUpload.handleRemove(file);
-        this.uploadedSuccessfully();
       }
+      this.uploadedSuccessfully();
     },
     // 删除图片
     handleDelete(file) {
@@ -175,21 +174,25 @@ export default {
     },
     // 上传失败
     handleUploadError() {
+      this.completedNumber++;
       this.$modal.msgError("上传图片失败，请重试");
-      this.$modal.closeLoading();
+      this.uploadedSuccessfully();
     },
     // 上传结束处理
     uploadedSuccessfully() {
-      if (this.number > 0 && this.uploadList.length === this.number) {
+      // 当所有文件都处理完成时（成功或失败），关闭loading并更新文件列表
+      if (this.number > 0 && this.completedNumber >= this.number) {
         this.fileList = this.fileList.concat(this.uploadList);
         this.uploadList = [];
         this.number = 0;
+        this.completedNumber = 0;
         this.$emit("input", this.listToString(this.fileList));
         this.$modal.closeLoading();
       }
     },
     // 预览
     handlePictureCardPreview(file) {
+      console.log(file);
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
