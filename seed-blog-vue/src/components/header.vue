@@ -14,6 +14,7 @@
 						</el-submenu>
 						<el-menu-item index="/Reward"><i class="fa fa-wa fa-cny"></i> 赞赏</el-menu-item>
 						<el-menu-item index="/Friendslink"><i class="fa fa-wa fa-users"></i>友链</el-menu-item>
+						<el-menu-item v-if="haslogin" index="/AiChat"><i class="fa fa-wa fa-comments"></i> AI聊天</el-menu-item>
 
 						<div class="userInfo">
 							<div v-show="!haslogin" class="nologin">

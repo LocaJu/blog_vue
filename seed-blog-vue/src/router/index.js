@@ -85,6 +85,14 @@ export default new Router({
 			},
 			name: 'UserInfo'
 		}, //用户个人中心
+		{
+			path: '/AiChat',
+			component: resolve => require(['../pages/AiChat.vue'], resolve),
+			meta: {
+				auth: true
+			},
+			name: 'AiChat'
+		}, //AI聊天
 
 	]
 })
